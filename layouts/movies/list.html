@@ -1,0 +1,59 @@
+{{ define "main" }}
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="{{ "/" | relURL }}">Home</a></li>
+        <li><a href="{{ "/books/" | relURL }}">Books</a></li>
+        <li><a href="{{ "/movies/" | relURL }}">Movies</a></li>
+      </ul>
+    </nav>
+
+    <header>
+      <h1>{{ .Title }}</h1>
+      <p>Explore our collection of public domain movies by genre.</p>
+    </header>
+
+    <main>
+      <ul>
+        {{ if .IsHome }}
+          <li><a href="{{ "/movies/scifi_horror/" | relURL }}">Sci-Fi / Horror</a></li>
+          <li><a href="{{ "/movies/film_noir/" | relURL }}">Film Noir</a></li>
+          <li><a href="{{ "/movies/comedy/" | relURL }}">Comedy</a></li>
+          <li><a href="{{ "/movies/silent_films/" | relURL }}">Silent Films</a></li>
+        {{ else if eq .Title "Sci-Fi / Horror" }}
+          {{ range .Site.Data.scifi_horror }}
+          <li>
+            <h2>{{ .title }}</h2>
+            <video controls>
+              <source src="{{ .video_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p><a href="{{ .download_url }}">Download Movie</a> | <a href="{{ .archive_link }}">View on Archive.org</a></p>
+          </li>
+          {{ end }}
+        {{ else if eq .Title "Film Noir" }}
+          {{ range .Site.Data.film_noir }}
+          <li>
+            <h2>{{ .title }}</h2>
+            <video controls>
+              <source src="{{ .video_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p><a href="{{ .download_url }}">Download Movie</a> | <a href="{{ .archive_link }}">View on Archive.org</a></p>
+          </li>
+          {{ end }}
+        <!-- Repeat for other genres -->
+        {{ end }}
+      </ul>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Open Access Media. All rights reserved.</p>
+    </footer>
+  </div>
+{{ end }}
+
+
+
+
+  
